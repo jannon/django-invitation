@@ -34,6 +34,4 @@ class Command(BaseCommand):
             interval = datetime.now() - timedelta(days=days)
             key_users = key_users.filter(date_joined__gte=interval)
             print ("In the last {0} days".format(days))
-        print ("{0} people signed up with the code {1}".format(key_users
-                                                                 .count(),
-                                                                 code))
+        print ("{0} people signed up with the code {1}".format(key_users.count(), code))

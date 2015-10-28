@@ -28,6 +28,7 @@ from django.test import TestCase
 from invitation import forms
 from invitation.backends import EmailDeliveryBackend
 from invitation.models import InvitationKey, InvitationUser
+from django.test.utils import override_settings
 
 
 try:
@@ -80,15 +81,15 @@ class InvitationTestCase(TestCase):
             'invitation_key': self.sample_key.key,
             'username': 'new_user',
             'email': 'newbie@example.com',
-            'password1': 'secret',
-            'password2': 'secret',
+            'password1': 'secrets!',
+            'password2': 'secrets!',
             'tos': '1'}
 
         self.sample_allauth_data = {
             'username': 'new_user',
             'email': 'newbie@example.com',
-            'password1': 'secret',
-            'password2': 'secret',
+            'password1': 'secrets!',
+            'password2': 'secrets!',
             'terms_and_conds': '1'}
 
     def assertRedirect(self, response, viewname):
@@ -270,7 +271,7 @@ class InvitationFormTests(InvitationTestCase):
                 'data': {'email': 'an_address@mydomain.com'},
                 'error': ('email', ["Thanks, but there's no need to invite us!"])
             }
-            ]
+        ]
 
         for invalid_dict in invalid_data_dicts:
             form = forms.DefaultInvitationKeyForm(data=invalid_dict['data'],
@@ -478,6 +479,7 @@ class InvitationViewTestsAllauth(InvitationTestCaseAllauth):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, wrong_key_template)
 
+    @override_settings(ACCOUNT_ADAPTER='invitation.accountadapter.InvitationAccountAdapter')
     def test_register_view(self):
         """
         Test that after registration a key cannot be reused.
@@ -560,6 +562,7 @@ class InviteModeOffTestsRegistration(InvitationTestCaseRegistration):
                                            kwargs={'invitation_key': self.sample_key.key}))
         self.assertRedirect(response, 'registration_register')
 
+    @override_settings(ACCOUNT_ADAPTER='invitation.accountadapter.InvitationAccountAdapter')
     def test_register_view(self):
         """
         Test register view.
@@ -622,6 +625,7 @@ class InviteModeOffTestsAllauth(InvitationTestCaseAllauth):
                                            kwargs={'invitation_key': self.sample_key.key}))
         self.assertRedirect(response, 'registration_register')
 
+    @override_settings(ACCOUNT_ADAPTER='invitation.accountadapter.InvitationAccountAdapter')
     def test_register_view(self):
         """
         Test register view.
