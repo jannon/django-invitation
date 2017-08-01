@@ -4,7 +4,8 @@ import importlib
 import random
 
 from django.conf import settings
-from django.contrib.sites.models import Site, RequestSite
+from django.contrib.sites.models import Site
+from django.contrib.sites.requests import RequestSite
 from django.core.files.storage import default_storage
 from django.core.urlresolvers import reverse
 

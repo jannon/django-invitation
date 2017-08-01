@@ -356,10 +356,10 @@ class InvitationViewTestsRegistration(InvitationTestCaseRegistration):
         self.assertTemplateUsed(response, wrong_key_template)
 
         # Invalid key use the wrong key template.
-        response = self.client.get(reverse('invitation_invited',
-                                           kwargs={'invitation_key': 'foo'}))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, wrong_key_template)
+        response2 = self.client.get(reverse('invitation_invited',
+                                            kwargs={'invitation_key': 'foo'}))
+        self.assertEqual(response2.status_code, 200)
+        self.assertTemplateUsed(response2, wrong_key_template)
 
         # Nonexistent key use the wrong key template.
         response = self.client.get(reverse('invitation_invited',
