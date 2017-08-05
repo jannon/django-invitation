@@ -7,12 +7,12 @@ contains the actual logic for determining which keys are deleted.
 
 """
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from invitation.models import InvitationKey
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     help = "Delete expired invitations' keys from the database"
 
     def handle_noargs(self, **options):

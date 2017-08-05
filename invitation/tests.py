@@ -95,7 +95,7 @@ class InvitationTestCase(TestCase):
     def assertRedirect(self, response, viewname):
         """Assert that response has been redirected to ``viewname``."""
         self.assertEqual(response.status_code, 302)
-        expected_location = 'http://testserver' + reverse(viewname)
+        expected_location = reverse(viewname)
         self.assertEqual(response['Location'], expected_location)
 
     def tearDown(self):
