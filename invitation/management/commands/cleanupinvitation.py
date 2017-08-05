@@ -15,5 +15,5 @@ from invitation.models import InvitationKey
 class Command(BaseCommand):
     help = "Delete expired invitations' keys from the database"
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         InvitationKey.objects.delete_expired_keys()
