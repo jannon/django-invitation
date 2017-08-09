@@ -96,7 +96,7 @@ class InvitationKey(models.Model):
                                         auto_now_add=True)
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                   related_name='invitations_sent')
-    registrant = models.ManyToManyField(settings.AUTH_USER_MODEL, null=True,
+    registrant = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                         blank=True,
                                         related_name='invitations_used')
     uses_left = models.IntegerField(default=1)
