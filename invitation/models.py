@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import connection
 
 from invitation import utils
@@ -95,6 +95,7 @@ class InvitationKey(models.Model):
     date_invited = models.DateTimeField(_('date invited'),
                                         auto_now_add=True)
     from_user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                  on_delete=models.CASCADE,
                                   related_name='invitations_sent')
     registrant = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                         blank=True,
@@ -222,7 +223,7 @@ class InvitationKey(models.Model):
 
 
 class InvitationUser(models.Model):
-    inviter = models.OneToOneField(settings.AUTH_USER_MODEL, unique=True)
+    inviter = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, unique=True)
     invites_allocated = \
         models.IntegerField(default=settings.INVITATIONS_PER_USER)
     invites_accepted = models.IntegerField(default=0)

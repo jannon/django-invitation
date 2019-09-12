@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('recipient_last_name', models.CharField(default='', max_length=24, blank=True)),
                 ('recipient_phone_number', models.CharField(max_length=15, blank=True)),
                 ('recipient_other', models.CharField(default='', max_length=255, blank=True)),
-                ('from_user', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='invitations_sent')),
+                ('from_user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.CASCADE, related_name='invitations_sent')),
                 ('registrant', models.ManyToManyField(null=True, to=settings.AUTH_USER_MODEL, related_name='invitations_used', blank=True)),
             ],
             options={
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('invites_allocated', models.IntegerField(default=3)),
                 ('invites_accepted', models.IntegerField(default=0)),
-                ('inviter', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('inviter', models.OneToOneField(to=settings.AUTH_USER_MODEL, on_delete=django.db.models.deletion.CASCADE)),
             ],
             options={
             },

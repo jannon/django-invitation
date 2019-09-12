@@ -22,7 +22,7 @@ from hashlib import sha1 as sha
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core import mail, management
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 
 from invitation import forms

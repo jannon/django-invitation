@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.contrib.sites.requests import RequestSite
 from django.core.files.storage import default_storage
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 def get_site(request=None):
