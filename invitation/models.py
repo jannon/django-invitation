@@ -81,7 +81,7 @@ class InvitationKeyManager(models.Manager):
         """
         invitation_user, _ = InvitationUser.objects.get_or_create(
             inviter=user,
-            defaults={'invitations_allocated': settings.INVITATIONS_PER_USER})
+            defaults={'invites_allocated': settings.INVITATIONS_PER_USER})
         return invitation_user.invites_remaining()
 
     def delete_expired_keys(self):
@@ -284,7 +284,7 @@ def user_post_save(sender, instance, created, **kwargs):
     if created:
         invitation_user = InvitationUser()
         invitation_user.inviter = instance
-        invitation_user.invitations_allocated = settings.INVITATIONS_PER_USER
+        invitation_user.invites_allocated = settings.INVITATIONS_PER_USER
         # prevent error on syncdb when superuser is created
         try:
             invitation_user.save()
